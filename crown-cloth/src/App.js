@@ -11,12 +11,6 @@ import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.action';
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      currentUser: null
-    }
-  }
 
 unsubscribeFromAuth = null;
 
@@ -27,17 +21,14 @@ componentDidMount() {
       const userRef = await createUserProfileDocument(userAuth);
 
       userRef.onSnapshot(snapShot => {
-        this.setState({
-          currentUser: {
+        console.log(snapShot, 'app did mount')
+        this.props.setCurrentUser1({
             id: snapShot.id,
             ...snapShot.data()
-          }
         });
       });
-      console.log(this.props, userAuth, 'app')
     }
-    console.log(this.props, userAuth, 'app-outauth')
-    this.setState({currentUser: userAuth});
+    this.props.setCurrentUser1(userAuth);
   });
 }
 
@@ -48,7 +39,7 @@ componentWillUnmount() {
   render () {
     return (
       <div>
-        <Header currentUser={this.state.currentUser}/>
+        <Header />
         <Switch>
           <Route exact path='/' component={HomePage} />        
           <Route exact path='/shop' component ={ShopPage} />
@@ -59,16 +50,9 @@ componentWillUnmount() {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser1: user => 
+    dispatch(setCurrentUser(user))
+});
 
-
-// const mapDispatchToProps = dispatch => ({
-//   setCurrentUser: user => {
-//     console.log(user, 'mapDispatchToProps')
-//       return dispatch(setCurrentUser(user))
-//     }
-// })
-
-// export default connect(null, mapDispatchToProps)(App);
- 
-
-export default App;
+export default connect(null, mapDispatchToProps)(App);
