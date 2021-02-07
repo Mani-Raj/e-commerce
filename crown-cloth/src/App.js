@@ -31,7 +31,7 @@ componentDidMount() {
     this.props.setCurrentUser1(userAuth);
   });
 }
-
+ 
 componentWillUnmount() {
   this.unsubscribeFromAuth();
 }
