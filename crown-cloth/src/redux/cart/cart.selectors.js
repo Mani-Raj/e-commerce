@@ -1,6 +1,7 @@
 // selector used to render particullar component - while change state
 // did not invoke mapstoprops, mapsdispatchtoprops
 // will increase - performance, by avoiding multiple render
+// tutorial - 130
 
 import { createSelector } from 'reselect';
 
