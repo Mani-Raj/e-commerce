@@ -12,9 +12,12 @@ const CartDropdown = ({ cartItems }) => (
         {/* need to check className - not working */}
         <div className='carts-items' style={{ overflow: "overlay" }}>
             {
+                cartItems.length ?
                 cartItems.map(cartItem => (
                     <CartItem key={cartItem.id} item={cartItem} />
                 ))
+                    : <span className='empty-message'> Your cart is empty</span>
+
             }
         </div>
         <CustomButtom> GO TO CHECKOUT </CustomButtom>
